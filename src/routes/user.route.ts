@@ -10,13 +10,12 @@ export const userRoutes = new Elysia()
     return htmlResponse(userView(users));
   })
 
-  .post("/create", async ({ body }) => {
-    const data = body as any;
-    userService.create({ name: data.name, role: data.role });
+  .post("/create", async ({ body }: { body: any }) => {
+    userService.create({ name: body.name, role: body.role });
     return redirect("/");
   })
 
-  .post("/delete/:id", ({ params }) => {
+  .post("/delete/:id", ({ params }: { params: { id: string } }) => {
     userService.delete(Number(params.id));
     return redirect("/");
   });
